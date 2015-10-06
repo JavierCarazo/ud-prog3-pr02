@@ -17,7 +17,7 @@ public class VentanaJuego extends JFrame {
 	MundoJuego miMundo;        // Mundo del juego
 	CocheJuego miCoche;        // Coche del juego
 	MiRunnable miHilo = null;  // Hilo del bucle principal de juego	
-
+	public static boolean[] pTeclas =new boolean[4];
 	/** Constructor de la ventana de juego. Crea y devuelve la ventana inicializada
 	 * sin coches dentro
 	 */
@@ -26,6 +26,8 @@ public class VentanaJuego extends JFrame {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		// Creaci�n contenedores y componentes
 		pPrincipal = new JPanel();
+		
+		 
 		JPanel pBotonera = new JPanel();
 		JButton bAcelerar = new JButton( "Acelera" );
 		JButton bFrenar = new JButton( "Frena" );
@@ -80,23 +82,51 @@ public class VentanaJuego extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP: {
+						pTeclas[0]=true;
 						miCoche.acelera( +10, 1 );
 						break;
 					}
 					case KeyEvent.VK_DOWN: {
+						pTeclas[1]=true;
 						miCoche.acelera( -10, 1 );
 						break;
 					}
 					case KeyEvent.VK_LEFT: {
+						pTeclas[2]=true;
 						miCoche.gira( +10 );
 						break;
 					}
 					case KeyEvent.VK_RIGHT: {
+						pTeclas[3]=true;
 						miCoche.gira( -10 );
 						break;
 					}
 				}
 			}
+		 public void keyReleased(KeyEvent e) {
+			 switch (e.getKeyCode()) {
+				case KeyEvent.VK_UP: {
+					pTeclas[0]=false;
+//					miCoche.acelera( +10, 1 );
+					break;
+				}
+				case KeyEvent.VK_DOWN: {
+					pTeclas[1]=false;
+//					miCoche.acelera( -10, 1 );
+					break;
+				}
+				case KeyEvent.VK_LEFT: {
+					pTeclas[2]=false;
+//					miCoche.gira( +10 );
+					break;
+				}
+				case KeyEvent.VK_RIGHT: {
+					pTeclas[3]=false;
+//					miCoche.gira( -10 );
+					break;
+				}
+			}
+		    }
 		});
 		pPrincipal.setFocusable(true);
 		pPrincipal.requestFocus();
